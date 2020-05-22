@@ -55,17 +55,32 @@ export async function getHeadlinesSources(country = "ru", userSources = []) {
 		try{
 			let requests = [];
 			
-			let url = `${c.HEADLINES}&sources=`;
+
+			// c.CATEGORIES.map((category) => {
+			// 	let url =  `https://cors-anywhere.herokuapp.com/${c.HEADLINES}&country=${country}&category=${category.toLowerCase()}`;
+			// 	requests.push(axios.get(url, {
+			// 		headers: {'Access-Control-Allow-Origin': 'http://localhost:19006/'}
+			// 	}
+					
+			// 	))
+			// });
+
+			let url = `https://cors-anywhere.herokuapp.com/${c.HEADLINES}&sources=`;
 			
+
+			let config = {
+				headers: {'Access-Control-Allow-Origin': 'http://localhost:19006/'}
+			};
+
 			if (userSources.length == 0) {
 				c.SOURCES.map((source) => {
 					url += `${source.toLowerCase()},`;
-					requests.push(axios.get(url))
+					requests.push(axios.get(url,config))
 				});	
 			} else {
 				userSources.map((source) => {
 					url += `${source.toLowerCase()},`;
-					requests.push(axios.get(url))
+					requests.push(axios.get(url,config))
 				});	
 			}
 	
